@@ -52,9 +52,9 @@ class InMemoryDB {
         }
       }
 
-      console.log('All Data:', allData);
+      // console.log('All Data:', allData);
       const map = new Map(Object.entries(allData));
-      console.log('All map:', map.values());
+      // console.log('All map:', map.values());
       return Array.from(map.values());
       // return allData;
     } catch (err) {
