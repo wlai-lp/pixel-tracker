@@ -3,10 +3,8 @@
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { useQuery } from "convex/react";
-import { api } from "../convex/_generated/api";
 
 export default function Home() {
-  const tasks = useQuery(api.tasks.get);
 
   return (
     <div className="container mx-auto p-4">
@@ -22,11 +20,6 @@ export default function Home() {
         <Button asChild>
           <Link href="/dashboard">View Dashboard</Link>
         </Button>
-      </div>
-      <div>
-        
-          {tasks?.map(({ _id, text }) => <div key={_id}>{text}</div>)}
-        
       </div>
     </div>
   )

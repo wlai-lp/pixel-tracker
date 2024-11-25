@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db, TrackingData } from '@/lib/db';
 
-import { createClient } from 'redis';
+// import { createClient } from 'redis';
 
 
 
@@ -9,12 +9,12 @@ import { createClient } from 'redis';
 export async function GET(request: NextRequest) {
 
 
-  const client = createClient({
-    url: process.env.REDIS_URL
-  });
-  client.on('error', err => console.log('Redis Client Error', err));
-  await client.connect();
-  console.log('Client Connected')
+  // const client = createClient({
+  //   url: process.env.REDIS_URL
+  // });
+  // client.on('error', err => console.log('Redis Client Error', err));
+  // await client.connect();
+  // console.log('Client Connected')
 
 
   const query = request.nextUrl.searchParams.toString();

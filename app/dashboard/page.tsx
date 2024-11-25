@@ -9,12 +9,12 @@ import { db, TrackingData } from '@/lib/db';
 //   query: string;
 // }
 
-function getTrackingData(): TrackingData[] {
-  return db.getAllEntries();
+async function getTrackingData(): Promise<TrackingData[]> {
+  return await db.getAllEntries();
 }
 
-export default function Dashboard() {
-  const trackingData = getTrackingData();
+export default async function Dashboard() {
+  const trackingData = await getTrackingData();
 
   return (
     <div className="container mx-auto p-4">

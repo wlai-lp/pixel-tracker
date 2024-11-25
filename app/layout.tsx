@@ -1,6 +1,5 @@
 // import type { Metadata } from "next";
 import "./globals.css";
-import { ConvexClientProvider } from "./ConvexClientProvider";
 
 
 export const metadata = {
@@ -16,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ConvexClientProvider>{children}</ConvexClientProvider>
+        {children}
       </body>
     </html>
   )
