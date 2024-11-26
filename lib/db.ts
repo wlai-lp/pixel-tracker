@@ -39,6 +39,13 @@ class InMemoryDB {
     return map;
 }
 
+ convertTimestampsToLocalTime = (array:TrackingData[]) => {
+  return array.map((item) => ({
+    ...item, // Keep other properties unchanged
+    timestamp: new Date(item.timestamp).toLocaleString(), // Convert timestamp
+  }));
+};
+
   async getAllEntries(): Promise<TrackingData[]> {
     try {
       const keys = await client.keys('*');
@@ -55,7 +62,7 @@ class InMemoryDB {
       // console.log('All Data:', allData);
       const map = new Map(Object.entries(allData));
       // console.log('All map:', map.values());
-      return Array.from(map.values());
+      return this.convertTimestampsToLocalTime(Array.from(map.values()));
       // return allData;
     } catch (err) {
       console.error('Error getting all data:', err);

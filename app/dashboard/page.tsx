@@ -1,6 +1,9 @@
+'use client'
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { db, TrackingData } from '@/lib/db';
+import { useState, useEffect } from 'react'
 
 // interface TrackingData {
 //   timestamp: string;
@@ -9,12 +12,32 @@ import { db, TrackingData } from '@/lib/db';
 //   query: string;
 // }
 
-async function getTrackingData(): Promise<TrackingData[]> {
-  return await db.getAllEntries();
-}
+// async function getTrackingData(): Promise<TrackingData[]> {
+//   return await db.getAllEntries();
+// }
 
-export default async function Dashboard() {
-  const trackingData = await getTrackingData();
+export default function Dashboard() {
+  console.log("get tracking data")
+
+  const [hits, setHits] = useState<TrackingData[]>([])
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const response = await fetch('/api/dashboard')
+      const data = await response.json()
+      setHits(data)
+    }
+
+    fetchOrders()
+    // Set up polling to check for new orders every 5 seconds
+    const intervalId = setInterval(fetchOrders, 5000)
+
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId)
+  }, [])
+
+
+  // const trackingData = await getTrackingData();
 
   return (
     <div className="container mx-auto p-4">
@@ -34,7 +57,7 @@ export default async function Dashboard() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {trackingData.map((data, index) => (
+              {hits.map((data, index) => (
                 <TableRow key={index}>
                   <TableCell>{data.timestamp}</TableCell>
                   <TableCell>{data.ip}</TableCell>
