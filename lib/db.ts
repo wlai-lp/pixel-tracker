@@ -26,6 +26,7 @@ class InMemoryDB {
   }
 
   async addEntry(data: TrackingData) {
+    console.log('add data:', data);
     const id = Date.now().toString();
     this.storage.set(id, data);
     await client.set(id, JSON.stringify(data));
