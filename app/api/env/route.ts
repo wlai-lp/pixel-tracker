@@ -7,6 +7,7 @@ const envVars: Record<string, string> = {
 
 export async function GET() {
   // In a real application, you'd want to implement proper authentication here
+  console.log('get env vars ' + JSON.stringify(envVars) );
   return NextResponse.json(envVars)
 }
 
