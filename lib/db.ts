@@ -55,10 +55,11 @@ class InMemoryDB {
   async getAllEntries(): Promise<TrackingData[]> {
     try {
       const keys = await client.keys("*");
-      console.log(keys);
+      const sortedKeys = keys.sort();
+      console.log(sortedKeys);
       const allData: Record<string, TrackingData> = {};
 
-      for (const key of keys) {
+      for (const key of sortedKeys) {
         const value = await client.get(key);
         if (value) {
           allData[key] = JSON.parse(value);

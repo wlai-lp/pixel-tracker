@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { ipAddress } from "@vercel/functions";
 import { db, TrackingData } from '@/lib/db';
 
 // import { createClient } from 'redis';
@@ -11,7 +12,7 @@ export async function GET(request: NextRequest) {
 
   const query = request.nextUrl.searchParams.toString();
   const userAgent = request.headers.get('user-agent') || 'Unknown';
-  const ip = request.ip || 'Unknown';
+  const ip = ipAddress(request) || 'Unknown';
 
   const trackingData: TrackingData = {
     timestamp: new Date().toISOString(),
